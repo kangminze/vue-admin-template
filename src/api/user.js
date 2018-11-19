@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
-export function userListByPage() {
+export function userListByPage(params) {
   return request({
     url: '/user/list',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
