@@ -4,7 +4,7 @@
     <div class="searchClass">
       <el-row>
         <el-col :span="2">
-          <el-button type="primary" style="width: 100px">新增</el-button>
+          <el-button type="primary" style="width: 100px" @click="handleSave">新增</el-button>
         </el-col>
         <el-col :span="22">
           <el-input v-model="searchContent" placeholder="请输入内容" style="width: 300px">
@@ -42,14 +42,19 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
+    <user-save ref="save" :dialog-p="dialogP" @refreshTable="refresh"/>
   </div>
 
 </template>
 
 <script>
 import { userListByPage } from '@/api/user'
+import userSave from './save.vue'
 
 export default {
+  components: {
+    userSave
+  },
   // 绑定属性
   data() {
     return {
@@ -57,8 +62,11 @@ export default {
       listLoading: true,
       total: 0,
       currentPage: 1,
-      pageSize: 2,
-      searchContent: ''
+      pageSize: 10,
+      searchContent: '',
+      dialogP: {
+        dialogFormVisible: false
+      }
     }
   },
   // 生命周期时间
@@ -92,6 +100,12 @@ export default {
       this.fetchData()
     },
     search: function() {
+      this.fetchData()
+    },
+    handleSave: function() {
+      this.dialogP.dialogFormVisible = true
+    },
+    refresh: function() {
       this.fetchData()
     }
   }

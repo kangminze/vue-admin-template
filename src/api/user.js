@@ -7,3 +7,11 @@ export function userListByPage(params) {
     params
   })
 }
+
+export function saveUser(data) {
+  return request({
+    url: '/user/create',
+    method: 'post',
+    data: data
+  })
+}
