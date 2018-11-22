@@ -31,6 +31,14 @@
           prop="password"
           label="密码"
         />
+        <el-table-column
+          fixed
+          label="操作">
+          <template slot-scope="scope">
+            <el-button type="text" size="small">编辑</el-button>
+            <el-button type="text" size="small" @click="handleDelete(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <div class="pageClass" style="text-align: right; padding-top: 15px">
@@ -48,7 +56,7 @@
 </template>
 
 <script>
-import { userListByPage } from '@/api/user'
+import { userListByPage, deleteUser } from '@/api/user'
 import userSave from './save.vue'
 
 export default {
@@ -107,6 +115,12 @@ export default {
     },
     refresh: function() {
       this.fetchData()
+    },
+    handleDelete: function(row) {
+      deleteUser(row.id).then(response => {
+        console.info('删除成功’)')
+        this.fetchData()
+      })
     }
   }
 }

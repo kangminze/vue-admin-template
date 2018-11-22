@@ -15,3 +15,10 @@ export function saveUser(data) {
     data: data
   })
 }
+
+export function deleteUser(id) {
+  return request({
+    url: '/user/' + id + '/delete',
+    method: 'delete'
+  })
+}
